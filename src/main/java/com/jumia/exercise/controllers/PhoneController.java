@@ -17,7 +17,7 @@ public class PhoneController {
         this.phoneService = phoneService;
     }
 
-    @GetMapping("listPhones")
+    @GetMapping("phones")
     public List<Phone> list(
             @RequestParam(required = false) String country,
             @RequestParam(required = false) Boolean state,

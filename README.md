@@ -14,16 +14,16 @@
 
 ### List all phones
 
-`curl http://localhost:8080/listPhones`
+`curl http://localhost:8080/phones`
 
 ### List all phones with pagination
 
-`curl http://localhost:8080/listPhones?pageSize=10&pageNumber=1`
+`curl http://localhost:8080/phones?pageSize=10&pageNumber=1`
 
 ### List phones by country
 
-`curl http://localhost:8080/listPhones?country=Uganda`
+`curl http://localhost:8080/phones?country=Uganda`
 
 ### List phones by state
 
-`curl http://localhost:8080/listPhones?state=1`
+`curl http://localhost:8080/phones?state=1`
