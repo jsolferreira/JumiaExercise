@@ -15,8 +15,8 @@ public class Phone {
     public Phone(Customer customer) {
         this.number = customer.getPhone();
 
-        this.country = CountryUtils.getCountry(number);
-        this.countryCode = CountryUtils.getCountryCode(number);
+        this.country = CountryUtils.getPhoneCountryName(number);
+        this.countryCode = CountryUtils.getPhoneCountryCode(number);
         this.valid = CountryUtils.isPhoneValid(number);
     }
 

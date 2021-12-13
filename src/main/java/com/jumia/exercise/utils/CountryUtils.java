@@ -1,72 +1,68 @@
 package com.jumia.exercise.utils;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class CountryUtils {
 
-    private static final Pattern CAMEROON_COUNTRY_CODE_PATTERN = Pattern.compile("^\\(237\\) .*");
-    private static final Pattern ETHIOPIA_COUNTRY_CODE_PATTERN = Pattern.compile("^\\(251\\) .*");
-    private static final Pattern MOROCCO_COUNTRY_CODE_PATTERN = Pattern.compile("^\\(212\\) .*");
-    private static final Pattern MOZAMBIQUE_COUNTRY_CODE_PATTERN = Pattern.compile("^\\(258\\) .*");
-    private static final Pattern UGANDA_COUNTRY_CODE_PATTERN = Pattern.compile("^\\(256\\) .*");
+    private enum Country {
+        CAMEROON("Cameroon", "+237", "\\(237\\) ?[2368]\\d{7,8}$", "^\\(237\\) .*"),
+        ETHIOPIA("Ethiopia", "+251", "\\(251\\) ?[1-59]\\d{8}$", "^\\(251\\) .*"),
+        MOROCCO("Morocco", "+212", "\\(212\\) ?[5-9]\\d{8}$", "^\\(212\\) .*"),
+        MOZAMBIQUE("Mozambique", "+258", "\\(258\\) ?[28]\\d{7,8}$", "^\\(258\\) .*"),
+        UGANDA("Uganda", "+256", "\\(256\\) ?\\d{9}$", "^\\(256\\) .*");
 
-    private static final Pattern CAMEROON_PATTERN = Pattern.compile("\\(237\\) ?[2368]\\d{7,8}$");
-    private static final Pattern ETHIOPIA_PATTERN = Pattern.compile("\\(251\\) ?[1-59]\\d{8}$");
-    private static final Pattern MOROCCO_PATTERN = Pattern.compile("\\(212\\) ?[5-9]\\d{8}$");
-    private static final Pattern MOZAMBIQUE_PATTERN = Pattern.compile("\\(258\\) ?[28]\\d{7,8}$");
-    private static final Pattern UGANDA_PATTERN = Pattern.compile("\\(256\\) ?\\d{9}$");
+        private final String name;
+        private final Pattern pattern;
+        private final Pattern countryCodePattern;
+        private final String code;
 
-    private static final List<Pattern> PATTERNS = Arrays.asList(
-            CAMEROON_PATTERN,
-            ETHIOPIA_PATTERN,
-            MOROCCO_PATTERN,
-            MOZAMBIQUE_PATTERN,
-            UGANDA_PATTERN
-    );
+        Country(String name, String code, String pattern, String countryCodePattern) {
+            this.name = name;
+            this.code = code;
+            this.pattern = Pattern.compile(pattern);
+            this.countryCodePattern = Pattern.compile(countryCodePattern);
+        }
 
-    public static String getCountry(String phone) {
-        if (CAMEROON_COUNTRY_CODE_PATTERN.matcher(phone).matches()) {
-            return "Cameroon";
+        public String getName() {
+            return name;
         }
-        if (ETHIOPIA_COUNTRY_CODE_PATTERN.matcher(phone).matches()) {
-            return "Ethiopia";
+
+        public Pattern getPattern() {
+            return pattern;
         }
-        if (MOROCCO_COUNTRY_CODE_PATTERN.matcher(phone).matches()) {
-            return "Morocco";
+
+        public Pattern getCountryCodePattern() {
+            return countryCodePattern;
         }
-        if (MOZAMBIQUE_COUNTRY_CODE_PATTERN.matcher(phone).matches()) {
-            return "Mozambique";
+
+        public String getCode() {
+            return code;
         }
-        if (UGANDA_COUNTRY_CODE_PATTERN.matcher(phone).matches()) {
-            return "Uganda";
+
+        public static Stream<Country> stream() {
+            return Stream.of(Country.values());
         }
-        return null;
     }
 
-    public static String getCountryCode(String phone) {
-        if (CAMEROON_COUNTRY_CODE_PATTERN.matcher(phone).matches()) {
-            return "+237";
-        }
-        if (ETHIOPIA_COUNTRY_CODE_PATTERN.matcher(phone).matches()) {
-            return "+251";
-        }
-        if (MOROCCO_COUNTRY_CODE_PATTERN.matcher(phone).matches()) {
-            return "+212";
-        }
-        if (MOZAMBIQUE_COUNTRY_CODE_PATTERN.matcher(phone).matches()) {
-            return "+258";
-        }
-        if (UGANDA_COUNTRY_CODE_PATTERN.matcher(phone).matches()) {
-            return "+256";
-        }
-        return null;
+    public static String getPhoneCountryName(String phone) {
+        return matchPhoneByCountryCodeThenMap(phone, Country::getName);
+    }
+
+    public static String getPhoneCountryCode(String phone) {
+        return matchPhoneByCountryCodeThenMap(phone, Country::getCode);
+    }
+
+    private static <T> T matchPhoneByCountryCodeThenMap(String phone, Function<Country, T> mapFunction) {
+        return Country.stream()
+                .filter(country -> country.getCountryCodePattern().matcher(phone).matches())
+                .findFirst()
+                .map(mapFunction)
+                .orElse(null);
     }
 
     public static boolean isPhoneValid(String phone) {
-        return PATTERNS
-                .stream()
-                .anyMatch(pattern -> pattern.matcher(phone).matches());
+        return Country.stream().anyMatch(country -> country.getPattern().matcher(phone).matches());
     }
 }
