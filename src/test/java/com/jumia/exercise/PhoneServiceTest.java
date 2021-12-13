@@ -3,6 +3,7 @@ package com.jumia.exercise;
 import com.jumia.exercise.model.Customer;
 import com.jumia.exercise.model.Phone;
 import com.jumia.exercise.services.PhoneService;
+import com.jumia.exercise.utils.CountryPhone;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,10 +63,10 @@ public class PhoneServiceTest {
 
         List<Phone> phones = phoneService.getPhonesByCountry("Uganda");
         Assertions.assertEquals(2, phones.size());
-        Assertions.assertEquals("Uganda", phones.get(0).getCountry());
-        Assertions.assertEquals("+256", phones.get(0).getCountryCode());
-        Assertions.assertEquals("Uganda", phones.get(1).getCountry());
-        Assertions.assertEquals("+256", phones.get(1).getCountryCode());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryName(), phones.get(0).getCountry());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryCode(), phones.get(0).getCountryCode());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryName(), phones.get(1).getCountry());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryCode(), phones.get(1).getCountryCode());
     }
 
     @Test
@@ -78,13 +79,13 @@ public class PhoneServiceTest {
 
         List<Phone> firstPage = phoneService.getPhonesByCountry("Uganda", 0, 1);
         Assertions.assertEquals(1, firstPage.size());
-        Assertions.assertEquals("Uganda", firstPage.get(0).getCountry());
-        Assertions.assertEquals("+256", firstPage.get(0).getCountryCode());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryName(), firstPage.get(0).getCountry());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryCode(), firstPage.get(0).getCountryCode());
 
         List<Phone> secondPage = phoneService.getPhonesByCountry("Uganda", 1, 1);
         Assertions.assertEquals(1, secondPage.size());
-        Assertions.assertEquals("Uganda", secondPage.get(0).getCountry());
-        Assertions.assertEquals("+256", secondPage.get(0).getCountryCode());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryName(), secondPage.get(0).getCountry());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryCode(), secondPage.get(0).getCountryCode());
 
         List<Phone> thirdPage = phoneService.getPhonesByCountry("Uganda", 2, 1);
         Assertions.assertEquals(0, thirdPage.size());
@@ -190,8 +191,8 @@ public class PhoneServiceTest {
         Assertions.assertEquals(phones.size(), 1);
         Phone phone = phones.get(0);
         Assertions.assertNotNull(phone);
-        Assertions.assertEquals("Uganda", phone.getCountry());
-        Assertions.assertEquals("+256", phone.getCountryCode());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryName(), phone.getCountry());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryCode(), phone.getCountryCode());
         Assertions.assertTrue(phone.isValid());
     }
 
@@ -204,8 +205,8 @@ public class PhoneServiceTest {
         Assertions.assertEquals(allPhones.size(), 1);
         Phone phone = allPhones.get(0);
         Assertions.assertNotNull(phone);
-        Assertions.assertEquals("Uganda", phone.getCountry());
-        Assertions.assertEquals("+256", phone.getCountryCode());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryName(), phone.getCountry());
+        Assertions.assertEquals(CountryPhone.UGANDA.getCountryCode(), phone.getCountryCode());
         Assertions.assertFalse(phone.isValid());
     }
 
@@ -218,8 +219,8 @@ public class PhoneServiceTest {
         Assertions.assertEquals(allPhones.size(), 1);
         Phone phone = allPhones.get(0);
         Assertions.assertNotNull(phone);
-        Assertions.assertEquals("Morocco", phone.getCountry());
-        Assertions.assertEquals("+212", phone.getCountryCode());
+        Assertions.assertEquals(CountryPhone.MOROCCO.getCountryName(), phone.getCountry());
+        Assertions.assertEquals(CountryPhone.MOROCCO.getCountryCode(), phone.getCountryCode());
         Assertions.assertTrue(phone.isValid());
     }
 
@@ -232,8 +233,8 @@ public class PhoneServiceTest {
         Assertions.assertEquals(allPhones.size(), 1);
         Phone phone = allPhones.get(0);
         Assertions.assertNotNull(phone);
-        Assertions.assertEquals("Morocco", phone.getCountry());
-        Assertions.assertEquals("+212", phone.getCountryCode());
+        Assertions.assertEquals(CountryPhone.MOROCCO.getCountryName(), phone.getCountry());
+        Assertions.assertEquals(CountryPhone.MOROCCO.getCountryCode(), phone.getCountryCode());
         Assertions.assertFalse(phone.isValid());
     }
 
@@ -246,8 +247,8 @@ public class PhoneServiceTest {
         Assertions.assertEquals(allPhones.size(), 1);
         Phone phone = allPhones.get(0);
         Assertions.assertNotNull(phone);
-        Assertions.assertEquals("Mozambique", phone.getCountry());
-        Assertions.assertEquals("+258", phone.getCountryCode());
+        Assertions.assertEquals(CountryPhone.MOZAMBIQUE.getCountryName(), phone.getCountry());
+        Assertions.assertEquals(CountryPhone.MOZAMBIQUE.getCountryCode(), phone.getCountryCode());
         Assertions.assertTrue(phone.isValid());
     }
 
@@ -260,8 +261,8 @@ public class PhoneServiceTest {
         Assertions.assertEquals(allPhones.size(), 1);
         Phone phone = allPhones.get(0);
         Assertions.assertNotNull(phone);
-        Assertions.assertEquals("Mozambique", phone.getCountry());
-        Assertions.assertEquals("+258", phone.getCountryCode());
+        Assertions.assertEquals(CountryPhone.MOZAMBIQUE.getCountryName(), phone.getCountry());
+        Assertions.assertEquals(CountryPhone.MOZAMBIQUE.getCountryCode(), phone.getCountryCode());
         Assertions.assertFalse(phone.isValid());
     }
 
@@ -274,8 +275,8 @@ public class PhoneServiceTest {
         Assertions.assertEquals(allPhones.size(), 1);
         Phone phone = allPhones.get(0);
         Assertions.assertNotNull(phone);
-        Assertions.assertEquals("Ethiopia", phone.getCountry());
-        Assertions.assertEquals("+251", phone.getCountryCode());
+        Assertions.assertEquals(CountryPhone.ETHIOPIA.getCountryName(), phone.getCountry());
+        Assertions.assertEquals(CountryPhone.ETHIOPIA.getCountryCode(), phone.getCountryCode());
         Assertions.assertTrue(phone.isValid());
     }
 
@@ -288,8 +289,8 @@ public class PhoneServiceTest {
         Assertions.assertEquals(allPhones.size(), 1);
         Phone phone = allPhones.get(0);
         Assertions.assertNotNull(phone);
-        Assertions.assertEquals("Ethiopia", phone.getCountry());
-        Assertions.assertEquals("+251", phone.getCountryCode());
+        Assertions.assertEquals(CountryPhone.ETHIOPIA.getCountryName(), phone.getCountry());
+        Assertions.assertEquals(CountryPhone.ETHIOPIA.getCountryCode(), phone.getCountryCode());
         Assertions.assertFalse(phone.isValid());
     }
 
@@ -302,8 +303,8 @@ public class PhoneServiceTest {
         Assertions.assertEquals(allPhones.size(), 1);
         Phone phone = allPhones.get(0);
         Assertions.assertNotNull(phone);
-        Assertions.assertEquals("Cameroon", phone.getCountry());
-        Assertions.assertEquals("+237", phone.getCountryCode());
+        Assertions.assertEquals(CountryPhone.CAMEROON.getCountryName(), phone.getCountry());
+        Assertions.assertEquals(CountryPhone.CAMEROON.getCountryCode(), phone.getCountryCode());
         Assertions.assertTrue(phone.isValid());
     }
 
@@ -316,8 +317,8 @@ public class PhoneServiceTest {
         Assertions.assertEquals(allPhones.size(), 1);
         Phone phone = allPhones.get(0);
         Assertions.assertNotNull(phone);
-        Assertions.assertEquals("Cameroon", phone.getCountry());
-        Assertions.assertEquals("+237", phone.getCountryCode());
+        Assertions.assertEquals(CountryPhone.CAMEROON.getCountryName(), phone.getCountry());
+        Assertions.assertEquals(CountryPhone.CAMEROON.getCountryCode(), phone.getCountryCode());
         Assertions.assertFalse(phone.isValid());
     }
 }

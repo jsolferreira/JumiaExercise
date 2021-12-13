@@ -1,6 +1,6 @@
 package com.jumia.exercise.model;
 
-import com.jumia.exercise.utils.CountryUtils;
+import com.jumia.exercise.utils.CountryPhoneUtils;
 
 public class Phone {
 
@@ -15,9 +15,9 @@ public class Phone {
     public Phone(Customer customer) {
         this.number = customer.getPhone();
 
-        this.country = CountryUtils.getPhoneCountryName(number);
-        this.countryCode = CountryUtils.getPhoneCountryCode(number);
-        this.valid = CountryUtils.isPhoneValid(number);
+        this.country = CountryPhoneUtils.getPhoneCountryName(number);
+        this.countryCode = CountryPhoneUtils.getPhoneCountryCode(number);
+        this.valid = CountryPhoneUtils.isPhoneValid(number);
     }
 
     public String getNumber() {
